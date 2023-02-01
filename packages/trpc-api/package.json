@@ -1,0 +1,17 @@
+{
+  "name": "trpc-api",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "database": "*",
+    "@trpc/client": "^10.9.0",
+    "@trpc/server": "^10.9.0",
+    "superjson": "^1.9.1",
+    "zod": "^3.18.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "tsconfig": "*"
+  }
+}

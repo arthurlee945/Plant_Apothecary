@@ -1,0 +1,36 @@
+{
+  "name": "pa_next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.10.5",
+    "@tanstack/react-query": "^4.24.4",
+    "@trpc/client": "^10.9.1",
+    "@trpc/next": "^10.9.1",
+    "@trpc/react-query": "^10.9.1",
+    "@trpc/server": "^10.9.1",
+    "@types/node": "18.11.18",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "framer-motion": "^8.5.5",
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "trpc-api": "*",
+    "typescript": "4.9.5",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
+    "eslint": "^8.33.0",
+    "eslint-config-custom": "*",
+    "eslint-config-next": "^13.1.6",
+    "tsconfig": "*"
+  }
+}
