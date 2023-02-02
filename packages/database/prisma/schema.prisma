@@ -8,10 +8,11 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(cuid())
-  username String @unique
-  email    String @unique
+  id       String  @id @default(cuid())
+  username String  @unique
+  email    String  @unique
   password String
+  plants   Plant[]
 }
 
 // model Scores {
@@ -23,3 +24,14 @@ model User {
 //   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 //   userId    String
 // }
+
+model Plant {
+  id       String    @id @default(cuid())
+  users    User[]
+  diseases Disease[]
+}
+
+model Disease {
+  id     String  @id @default(cuid())
+  plants Plant[]
+}
