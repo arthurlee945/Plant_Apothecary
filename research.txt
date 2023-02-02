@@ -3,3 +3,5 @@ https://ipm.ucanr.edu/PMG/diseases/diseaseslist.html
 https://www.gbif.org/species/search?highertaxon_key=5&highertaxon_key=6
 
 https://www.inaturalist.org/observations/export
+
+https://github.com/abdullahselek/plant-disease-classification-api
