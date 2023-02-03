@@ -12,7 +12,7 @@ class Scrapper:
         self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
     def get_data(self) -> str:
-        URL = "https://ipm.ucanr.edu/PMG/diseases/diseaseslist.html";
+        URL = "https://ipm.ucanr.edu/PMG/diseases/diseaseslist.html"
         Base_URL = "https://ipm.ucanr.edu"
         self.driver.get(URL)
         listings = self.driver.find_elements(By.CSS_SELECTOR, "table[id='ALLDISEASES'] tbody tr")
