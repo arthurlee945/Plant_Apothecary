@@ -3,15 +3,16 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-      "db:generate": "prisma generate",
-      "db:push": "prisma db push --skip-generate",
-      "db:studio": "prisma studio --port 5556"
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "db:studio": "prisma studio --port 5556"
   },
   "dependencies": {
-      "@prisma/client": "^4.8.1"
+    "@prisma/client": "^4.8.1",
+    "csv-parse": "^5.3.4"
   },
   "devDependencies": {
-      "prisma": "^4.8.1",
-      "tsconfig": "*"
+    "prisma": "^4.8.1",
+    "tsconfig": "*"
   }
 }

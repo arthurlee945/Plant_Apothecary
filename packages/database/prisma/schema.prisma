@@ -15,23 +15,51 @@ model User {
   plants   Plant[]
 }
 
-// model Scores {
-//   id        String   @id @default(cuid())
-//   track     String
-//   bpm       Int
-//   score     Int
-//   createdAt DateTime @default(now())
-//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   userId    String
-// }
-
 model Plant {
-  id       String    @id @default(cuid())
-  users    User[]
-  diseases Disease[]
+  id             String    @id @default(cuid())
+  image          String[]
+  location       String[]
+  town           String?
+  county         String?
+  state          String?
+  country        String?
+  scientificName String?
+  commonName     String?
+  kingdom        String?
+  phylum         String?
+  class          String?
+  subClass       String?
+  order          String?
+  subOrder       String?
+  family         String?
+  subFamily      String?
+  tribe          String?
+  subTribe       String?
+  genus          String?
+  species        String?
+  subSpecies     String?
+  varietyName    String?
+  users          User[]
+  diseases       Disease[]
 }
 
 model Disease {
-  id     String  @id @default(cuid())
-  plants Plant[]
+  id                     String   @id @default(cuid())
+  primaryHost            String[]
+  commonName             String?
+  scientificName         String?
+  diseaseType            String?
+  images                 String[]
+  hosts                  String?
+  symptoms               String?
+  idealConditions        String?
+  preventionAndManagment String?
+  identification         String?
+  lifeCycle              String?
+  solutions              String?
+  damage                 String?
+  viruses                String?
+  title                  String?
+  description            String?
+  plants                 Plant[]
 }
