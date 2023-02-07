@@ -17,7 +17,7 @@ model User {
 
 model Plant {
   id             String    @id @default(cuid())
-  image          String[]
+  images         String[]
   location       String[]
   town           String?
   county         String?
@@ -27,6 +27,7 @@ model Plant {
   commonName     String?
   kingdom        String?
   phylum         String?
+  subPhylum      String?
   class          String?
   subClass       String?
   order          String?

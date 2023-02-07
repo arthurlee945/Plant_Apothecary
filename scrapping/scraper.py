@@ -25,25 +25,37 @@ class Scrapper:
         cn_td.click()
         try:
             try:
-                init = WebDriverWait(self.driver, timeout=3).until(
+                init = WebDriverWait(self.driver, timeout=4).until(
                     lambda d: d.find_element(By.CSS_SELECTOR, "table[class='layout'] >tbody >tr"))
                 info_tb = init.find_elements(By.XPATH, "./*")
-                try:
-                    info_tb[0].find_element(By.TAG_NAME, "img")
-                    img_lnks = "<<SPLIT>>".join(
-                        [img.get_attribute('src') for img in info_tb[0].find_elements(By.TAG_NAME, "img")])
-                    info_text = info_tb[1].text
-                except NoSuchElementException:
-                    info_tb[1].find_element(By.TAG_NAME, "img")
-                    img_lnks = "<<SPLIT>>".join(
-                        [img.get_attribute('src') for img in info_tb[1].find_elements(By.TAG_NAME, "img")])
+                if len(info_tb) == 1:
+                    img_lnks = ""
                     info_text = info_tb[0].text
+                else:
+                    try:
+                        info_tb[0].find_element(By.TAG_NAME, "img")
+                        img_lnks = "<<SPLIT>>".join(
+                            [img.get_attribute('src') for img in info_tb[0].find_elements(By.TAG_NAME, "img")])
+                        info_text = info_tb[1].text
+                    except NoSuchElementException:
+                        info_tb[1].find_element(By.TAG_NAME, "img")
+                        img_lnks = "<<SPLIT>>".join(
+                            [img.get_attribute('src') for img in info_tb[1].find_elements(By.TAG_NAME, "img")])
+                        info_text = info_tb[0].text
+
             except TimeoutException:
-                one_item = WebDriverWait(self.driver, timeout=3).until(
-                    lambda d: d.find_element(By.CSS_SELECTOR, "td[id='contentarea'] "
-                                                              ">table[border='0']:not(table[class='menuarea']):not(table[id='tableofcontents']) >tbody >tr >td"))
-                img_lnks = ""
-                info_text = one_item.text
+                try:
+                    one_item = WebDriverWait(self.driver, timeout=4).until(
+                        lambda d: d.find_element(By.CSS_SELECTOR, "td[id='contentarea'] "
+                                                                  ">table[class='layout']:not(table[class='menuarea']):not(table[id='tableofcontents']) >tbody >tr >td"))
+                    img_lnks = ""
+                    info_text = one_item.text
+                except TimeoutException:
+                    one_item = WebDriverWait(self.driver, timeout=4).until(
+                        lambda d: d.find_element(By.CSS_SELECTOR, "td[id='contentarea'] "
+                                                                  ">table:nth-of-type(2):not(table[class='menuarea']):not(table[id='tableofcontents']) >tbody >tr >td"))
+                    img_lnks = ""
+                    info_text = one_item.text
 
             split_text = [txt.lower() for txt in info_text.split("\n") if
                           "For more information" not in txt
@@ -93,11 +105,24 @@ class Scrapper:
         rows = ['plant or crop host', 'common name', 'scientific name', 'type', "imgLinks", "hosts", 'symptoms',
                 "conditions favoring disease", "prevention and management", "identification", "life cycle", "solutions",
                 "damage", "identification and biology", "infection", "viruses", "title name", "title description"]
-
+        # s = self.processor(listings[313])
+        # print(s)
         with open(file_name, 'w', encoding='UTF8', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(rows)
-            for i,tr in enumerate(listings):
-                print(i)
-                writer.writerow(self.processor(tr))
+            # for i,tr in enumerate(listings):
+            #     print(tr)
+            #     WebDriverWait(self.driver, timeout=7).until(
+            #         lambda d: d.find_elements(By.CSS_SELECTOR, "table[id='ALLDISEASES'] >tbody >tr"))
+            #     writer.writerow(self.processor(tr))
+            #     self.driver.back()
+            for i in range(0,len(listings)):
+                list = WebDriverWait(self.driver, timeout=7).until(
+                    lambda d: d.find_elements(By.CSS_SELECTOR, "table[id='ALLDISEASES'] >tbody >tr"))
+                data = self.processor(list[i])
+                print(i, data)
+                writer.writerow(data)
                 self.driver.back()
+
+        while True:
+            pass
