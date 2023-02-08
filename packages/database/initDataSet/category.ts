@@ -1,5 +1,5 @@
 export const category = {
-  flower: [
+  flowers: [
     "alyssum",
     "aster",
     "azalea",
@@ -29,7 +29,7 @@ export const category = {
     "violet",
     "zinnia",
   ],
-  frutis: [
+  fruits: [
     "almond",
     "apple",
     "apricot",
@@ -136,8 +136,74 @@ export const category = {
   ],
 };
 
-export const catDiv = {
-  flower: ["Magnoliopsida", "Liliopsida"],
-  lawns: ["Polypodiopsida"],
-  trees: ["pinopsida", "Lycopodiopsida"],
+export const allCat = [...category.flowers, ...category.fruits, ...category.lawns, ...category.trees, ...category.vegs];
+
+export const alias = {
+  "onions and garlic": ["onions", "garlic"],
+  "stone fruit": [
+    "coconut",
+    "olive",
+    "plum",
+    "peach",
+    "plum",
+    "cherry",
+    "nectarine",
+    "apricot",
+    "mango",
+    "lychee",
+    "raspberry",
+    "blackberry",
+    "mulberry",
+    "date",
+  ],
+  "london plane tree": ["london plane"],
+  "california hazel": ["beaked hazelnut"],
+  "barberton daisy": ["daisy"],
+  "gerbera daisy": ["daisy"],
+  "transvaal daisy": ["daisy"],
+};
+
+export const TracheophytaClass = {
+  Polypodiopsida: ["lawns"],
+  Magnoliopsida: ["flowers", "fruits", "vegs"],
+  Liliopsida: ["flowers", "fruits", "vegs"],
+  Pinopsida: ["trees"],
+  Lycopodiopsida: ["trees"],
+  Gnetopsida: ["trees"],
+  Cycadopsida: ["trees"],
+};
+
+export const MagnoliopsidaOrder = {
+  Lamiales: ["flowers"],
+  Oxalidales: ["flowers"],
+  Ranunculales: ["flowers"],
+  Boraginales: ["flowers"],
+  Ericales: ["flowers", "fruits"],
+  Nymphaeales: ["flowers"],
+  Malpighiales: ["flowers", "fruits"],
+  Piperales: ["flowers", "fruits"],
+  Fabales: ["flowers", "vegs"],
+  Caryophyllales: ["flowers", "vegs"],
+  Saxifragales: ["flowers", "fruit"],
+  Dipsacales: ["flowers", "fruit"],
+  Gentianales: ["flowers"],
+  Brassicales: ["flowers", "fruits", "vegs"],
+  Rosales: ["flowers"],
+  Geraniales: ["flowers"],
+  Apiales: ["flowers", "vegs"],
+  Fagales: ["trees"],
+  Garryales: ["flowers"],
+  Malvales: ["flowers", "fruit"],
+  Solanales: ["flowers", "vegs"],
+  Sapindales: ["trees", "fruit", "vegs"],
+  Cornales: ["flowers"],
+  Myrtales: ["flowers", "fruit"],
+  Vitales: ["fruit"],
+  Santalales: ["trees"],
+  Cucurbitales: ["fruit", "vegs"],
+  Laurales: ["trees", "vegs"],
+  Zygophyllales: ["trees", "flowers"],
+  Celastrales: ["trees", "flowers"],
+  Proteales: ["flowers"],
+  Magnoliales: ["flowers", "fruits"],
 };

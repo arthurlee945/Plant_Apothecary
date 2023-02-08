@@ -132,7 +132,7 @@ const PlantAdd = async (row: string[]) => {
 //adding plants
 
 let plants: any[] = [];
-fs.createReadStream("./na_plant.csv.csv")
+fs.createReadStream("./na_plant.csv")
   .pipe(parse({ delimiter: ",", from_line: 2 }))
   .on("data", async (row: string[]) => {
     plants.push(row);
