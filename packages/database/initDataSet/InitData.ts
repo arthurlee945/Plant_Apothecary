@@ -1,4 +1,5 @@
 import { prisma } from "../index";
+import { category, TracheophytaClass, MagnoliopsidaOrder, LiliopsidaOrder, categoryIds } from "./category";
 const fs = require("fs");
 //need to npm install csv-parse
 const { parse } = require("csv-parse");
@@ -64,10 +65,11 @@ const PlantAdd = async (row: string[]) => {
       commonName: row[8],
     },
   });
-
-  console.log(await sleep(500));
-
+  console.log(count);
+  count += 1;
+  // console.log(await sleep(25));
   if (!!possibleRow) {
+    console.log("already processed");
     await prisma.plant.update({
       where: {
         id: possibleRow.id,
@@ -77,6 +79,38 @@ const PlantAdd = async (row: string[]) => {
       },
     });
   } else {
+    console.log("adding data");
+    const phylum = row[10];
+    let connectionIds: { id: string }[] = [];
+    if (phylum === "Tracheophyta") {
+      const pClass = row[12];
+      if (pClass !== "Magnoliopsida" && pClass !== "Liliopsida") {
+        const catName = TracheophytaClass[pClass];
+        connectionIds.push(...categoryIds[catName]);
+      } else if (pClass === "Magnoliopsida") {
+        const order = row[14];
+        const catNames = MagnoliopsidaOrder[order];
+        for (const cat of catNames) {
+          connectionIds.push(...categoryIds[cat]);
+        }
+      } else {
+        const order = row[14];
+        const catNames = LiliopsidaOrder[order];
+        for (const cat of catNames) {
+          connectionIds.push(...categoryIds[cat]);
+        }
+      }
+      // const diseases = await prisma.disease.findMany({
+      //   where: {
+      //     primaryHost: {
+      //       hasSome: categories,
+      //     },
+      //   },
+      // });
+      // diseases.forEach((d) => {
+      //   connectionIds.push({ id: d.id });
+      // });
+    }
     await prisma.plant.create({
       data: {
         images: [row[0]],
@@ -103,7 +137,7 @@ const PlantAdd = async (row: string[]) => {
         subSpecies: row[22],
         varietyName: row[23],
         diseases: {
-          connect: [{ id: "" }],
+          connect: connectionIds,
         },
       },
     });
@@ -138,10 +172,12 @@ fs.createReadStream("./na_plant.csv")
     plants.push(row);
   })
   .on("end", async () => {
-    console.log("finished");
-    for (let i = 0; i < plants.length; i++) {
-      await PlantAdd(plants[i]);
-    }
+    console.log("process starting");
+    // await PlantAdd(plants[86532 + 4595 + 6429 + 39192 + 1002]);
+    console.log(plants.slice(2211 + 86532 + 4595 + 6429 + 39192 + 1002).length);
+    // for (const plant of plants.slice(2211+86532 + 4595 + 6429 + 39192 + 1002)) {
+    //   await PlantAdd(plant);
+    // }
   })
   .on("error", (err: any) => {
     console.log(err.message);
@@ -160,3 +196,51 @@ fs.createReadStream("./na_plant.csv")
 //   .on("error", (err: any) => {
 //     console.log(err.message);
 //   });
+
+const x = [
+  "Lamiales",
+  "Oxalidales",
+  "Ranunculales",
+  "Boraginales",
+  "Ericales",
+  "Nymphaeales",
+  "Malpighiales",
+  "Piperales",
+  "Fabales",
+  "Caryophyllales",
+  "Saxifragales",
+  "Dipsacales",
+  "Asterales",
+  "Gentianales",
+  "Brassicales",
+  "Rosales",
+  "Geraniales",
+  "Apiales",
+  "Fagales",
+  "Garryales",
+  "Malvales",
+  "Solanales",
+  "Sapindales",
+  "Cornales",
+  "Myrtales",
+  "Vitales",
+  "Santalales",
+  "Cucurbitales",
+  "Laurales",
+  "Zygophyllales",
+  "Celastrales",
+  "Proteales",
+  "Magnoliales",
+  "Ceratophyllales",
+  "Aquifoliales",
+  "Austrobaileyales",
+  "Crossosomatales",
+  "Gunnerales",
+  "Buxales",
+  "Picramniales",
+  "Dilleniales",
+  "Metteniusales",
+  "Canellales",
+];
+
+// console.log(x.length, Object.keys(MagnoliopsidaOrder).length);

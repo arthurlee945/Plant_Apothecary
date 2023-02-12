@@ -1,6 +1,10 @@
 import Head from "next/head";
-
+import { useContext } from "react";
+import { AuthContext } from "../utils/authContext";
+import { trpc } from "../utils/trpc";
 export default function Home() {
+  const authCtx = useContext(AuthContext);
+  const someData = trpc.plant.all.useQuery();
   return (
     <>
       <Head>
