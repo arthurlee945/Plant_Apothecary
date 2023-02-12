@@ -4,7 +4,9 @@ import { AuthContext } from "../utils/authContext";
 import { trpc } from "../utils/trpc";
 export default function Home() {
   const authCtx = useContext(AuthContext);
-  const someData = trpc.plant.all.useQuery();
+  const someData = trpc.plant.getPlants.useQuery({});
+  console.log(someData);
+
   return (
     <>
       <Head>

@@ -1,8 +1,11 @@
 import { router, publicProcedure } from "../trpc";
 import { z } from "zod";
 
-export const plantRouter = router({
-  getPlants: publicProcedure
+export const diseaseRouter = router({
+  all: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.disease.findMany();
+  }),
+  getDisease: publicProcedure
     .input(
       z.object({
         take: z.number().default(10),
@@ -10,12 +13,12 @@ export const plantRouter = router({
       })
     )
     .query(({ ctx, input }) => {
-      return ctx.prisma.plant.findMany({
+      return ctx.prisma.disease.findMany({
         take: input.take,
         skip: input.skip,
       });
     }),
-  getPlantsC: publicProcedure
+  getDiseaseC: publicProcedure
     .input(
       z.object({
         take: z.number().default(10),
@@ -23,7 +26,7 @@ export const plantRouter = router({
       })
     )
     .query(({ ctx, input }) => {
-      return ctx.prisma.plant.findMany({
+      return ctx.prisma.disease.findMany({
         take: input.take,
         skip: 1,
         cursor: {
@@ -31,15 +34,15 @@ export const plantRouter = router({
         },
       });
     }),
-  getPlantById: publicProcedure.input(z.string()).query(({ ctx, input }) => {
-    return ctx.prisma.plant.findUnique({
+  getDiseaseById: publicProcedure.input(z.string()).query(({ ctx, input }) => {
+    return ctx.prisma.disease.findUnique({
       where: {
         id: input,
       },
     });
   }),
   getPlantsByLetter: publicProcedure.input(z.string().length(1)).query(({ ctx, input }) => {
-    return ctx.prisma.plant.findMany({
+    return ctx.prisma.disease.findMany({
       where: {
         commonName: {
           startsWith: input,
